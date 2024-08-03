@@ -187,7 +187,6 @@ public class leetcode {
         }
 
         int maxWindowSum = initialWindowSum;    //@ Initialize the maximum window sum with the initial window sum
-        
 
         //$ Slide the window across the array to find the maximum sum of a window of size countOfOnes
         for (int i = 0; i < inputArray.length; i++) {
@@ -197,6 +196,31 @@ public class leetcode {
         }
 
         return countOfOnes - maxWindowSum;  //@ The minimum swaps needed to group all 1s together is the total number of 1s minus the maximum window sum
+
+    }
+
+    //% Check if two arrays are equal or not
+    public boolean canBeEqual(int[] target, int[] arr) {
+
+        //$ Check if the lengths of the two arrays are equal
+        if (target.length != arr.length) {
+            return false;   //@ Cannot be equal if they have different lengths
+        }
+
+        //$ Count the occurrences of each element in the target array
+        int[] counting = new int[1001];
+        for (int index = 0; index < target.length; index++) {
+            counting[target[index]]++;
+            counting[arr[index]]--;
+        }
+
+        //$ Check if the number of occurrences are zero
+        for (int count : counting){
+            if (count != 0) {
+                return false;   //@ Cannot be equal if the number of occurrences of an element is not equal
+            }
+        }
         
+        return true;
     }
 }
