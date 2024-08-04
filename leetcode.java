@@ -1,4 +1,6 @@
 
+import java.util.Arrays;
+
 public class leetcode {
 
     //% Find two indices in the array that add up to the target
@@ -215,12 +217,39 @@ public class leetcode {
         }
 
         //$ Check if the number of occurrences are zero
-        for (int count : counting){
+        for (int count : counting) {
             if (count != 0) {
                 return false;   //@ Cannot be equal if the number of occurrences of an element is not equal
             }
         }
-        
+
         return true;
+    }
+
+    //% Calculate the sum of the specified range of sorted subarray sums
+    public int rangeSum(int[] array, int numberOfPositiveInts, int leftIndex, int rightIndex) {
+        //$ Calculate the total number of subarrays
+        int[] subArraySums = new int[numberOfPositiveInts * (numberOfPositiveInts + 1) / 2];
+
+        //$ Generate all subarrays and calculate their sums
+        for (int i = 0, k = 0; i < array.length; i++) {
+            int currentSum = 0;  //@ Initialize current subarray sum
+            for (int j = i; j < numberOfPositiveInts; j++) {
+                currentSum += array[j];  //@ Add element to current subarray sum
+                subArraySums[k++] = currentSum;  //@ Store current subarray sum
+            }
+        }
+
+        //$ Sort the list of subarray sums
+        Arrays.sort(subArraySums);
+
+        //$ Calculate the sum of the specified range of sorted subarray sums
+        int sum = 0;
+        final int mod = (int) (1e9 + 7);
+        for (int idx = leftIndex - 1; idx < rightIndex; idx++) {
+            sum = (sum + subArraySums[idx]) % mod;
+        }
+
+        return sum;
     }
 }
