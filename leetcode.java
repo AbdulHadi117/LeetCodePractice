@@ -278,4 +278,33 @@ public class leetcode {
         // $ Return an empty string if the kth distinct element is not found
         return "";
     }
+
+    //% Find Minimum Number of Pushes needed to type word
+    public int minimumPushes(String word){
+
+        // $ Count the occurrences of each character in the word
+        int alphabetSize = 26;
+        int[] freqCount = new int[alphabetSize];
+        for (char character : word.toCharArray()){
+            freqCount[character - 'a']++;
+        }
+
+        // $ Sort the array in descending order
+        Arrays.sort(freqCount); //@ Sort the Array
+        for (int index = 0; index < alphabetSize / 2 ; index++){
+            int temp = freqCount[index];
+            freqCount[index] = freqCount[alphabetSize - 1 - index];
+            freqCount[alphabetSize - 1 - index] = temp;
+        }
+        
+        // $ Calculate the number of pushes needed
+        int minPushes = 0;
+        for (int index = 0; index < freqCount.length ; index++){
+            if (freqCount[index] == 0){
+                break;
+            }
+            minPushes += ((index / 8) + 1) * freqCount[index];
+        }
+        return minPushes;
+    }
 }
