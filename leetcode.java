@@ -279,32 +279,81 @@ public class leetcode {
         return "";
     }
 
-    //% Find Minimum Number of Pushes needed to type word
-    public int minimumPushes(String word){
+    // % Find Minimum Number of Pushes needed to type word
+    public int minimumPushes(String word) {
 
         // $ Count the occurrences of each character in the word
         int alphabetSize = 26;
         int[] freqCount = new int[alphabetSize];
-        for (char character : word.toCharArray()){
+        for (char character : word.toCharArray()) {
             freqCount[character - 'a']++;
         }
 
         // $ Sort the array in descending order
-        Arrays.sort(freqCount); //@ Sort the Array
-        for (int index = 0; index < alphabetSize / 2 ; index++){
+        Arrays.sort(freqCount); // @ Sort the Array
+        for (int index = 0; index < alphabetSize / 2; index++) {
             int temp = freqCount[index];
             freqCount[index] = freqCount[alphabetSize - 1 - index];
             freqCount[alphabetSize - 1 - index] = temp;
         }
-        
+
         // $ Calculate the number of pushes needed
         int minPushes = 0;
-        for (int index = 0; index < freqCount.length ; index++){
-            if (freqCount[index] == 0){
+        for (int index = 0; index < freqCount.length; index++) {
+            if (freqCount[index] == 0) {
                 break;
             }
             minPushes += ((index / 8) + 1) * freqCount[index];
         }
         return minPushes;
+    }
+
+    public String numberToWords(int number) {
+
+        if (number == 0) {
+            return "Zero";
+        }
+
+        String[] units = { "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
+        String[] tens = { "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+        String[] teens = { "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
+                "Eighteen", "Nineteen" };
+
+        String result = "";
+
+        if (number >= 1000000000) {
+            result += numberToWords(number / 1000000000) + " Billion ";
+            number %= 1000000000;
+        }
+
+        if (number >= 1000000) {
+            result += numberToWords(number / 1000000) + " Million ";
+            number %= 1000000;
+        }
+
+        if (number >= 1000) {
+            result += numberToWords(number / 1000) + " Thousand ";
+            number %= 1000;
+        }
+
+        if (number >= 100) {
+            result += numberToWords(number / 100) + " Hundred ";
+            number %= 100;
+        }
+
+        if (number >= 20) {
+            result += tens[number / 10] + " ";
+            number %= 10;
+        }
+
+        if (number > 0) {
+            if (number < 10) {
+                result += units[number] + " ";
+            } else {
+                result += teens[number - 10] + " ";
+            }
+        }
+
+        return result.trim();
     }
 }
