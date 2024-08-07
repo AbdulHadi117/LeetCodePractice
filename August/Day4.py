@@ -1,4 +1,4 @@
-def range_sum(array, numberOfPositiveInts, leftIndex, rightIndex):
+def rangeSum(array, numberOfPositiveInts, leftIndex, rightIndex):
     subArraySums = []  # List to store sums of all subarrays
 
     # Generate all subarrays and calculate their sums
@@ -21,4 +21,4 @@ left_index = 1
 right_index = 5
 
 # Print the result of the range sum
-print(range_sum(array, numberOfPositiveInts, left_index, right_index))
+print(rangeSum(array, numberOfPositiveInts, left_index, right_index))
