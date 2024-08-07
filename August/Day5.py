@@ -1,4 +1,4 @@
-def kthDistinct(array,kthDistinctElement):    
+def kthDistinct(array,k):    
     # Create a dictionary to store the frequency of each element
     distinctElements = {}
     # Loop through the array
@@ -16,16 +16,16 @@ def kthDistinct(array,kthDistinctElement):
         # If the frequency of the element is 1
         if distinctElements[char] == 1:
             # If the element is the kth distinct element
-            if kthDistinctElement == 1:
+            if k == 1:
                 # Return it
                 return char
             # Decrement the k
-            kthDistinctElement -= 1
+            k -= 1
     # If the kth distinct element is not found
     return -1
 
 # Example usage:
 array = ["d","b","c","b","c","a"]
-kthDistinctElement = 2
+k = 2
 # Print the result
-print(kthDistinct(array,kthDistinctElement))
+print(kthDistinct(array,k))
