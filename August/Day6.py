@@ -22,6 +22,6 @@ def minimumPushes(word):
     return minimumPushes
 
 # Example usage
-word = "aabbccddeeffgghhiiiiii"
+word = "xyzxyzxyzxyz"
 minimumPushesRequired = minimumPushes(word)
 print(f"Minimum number of pushes needed: {minimumPushesRequired}")
