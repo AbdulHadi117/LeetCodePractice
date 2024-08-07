@@ -1,4 +1,4 @@
-def minSwaps(nums):
+def minimumSwaps(nums):
     # Count the number of 1's in the list
     countOfOnes = nums.count(1)
     
@@ -23,5 +23,5 @@ def minSwaps(nums):
 
 # Example usage:
 nums = [1, 0, 1, 0, 1, 0, 0, 1]
-swaps = minSwaps(nums)
+swaps = minimumSwaps(nums)
 print(f"Minimum number of swaps needed: {swaps}")
