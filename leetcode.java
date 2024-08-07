@@ -311,48 +311,50 @@ public class leetcode {
     // % Convert Number into English Word Representation
     public String numberToWords(int number) {
 
-        if (number == 0) {return "Zero";}   //@ Handle the case of Zero
+        if (number == 0) {
+            return "Zero";
+        } // @ Handle the case of Zero
 
-        //$ Arrays to map numbers to their word equivalents
+        // $ Arrays to map numbers to their word equivalents
 
         String[] units = { "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
         String[] tens = { "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
         String[] teens = { "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
                 "Eighteen", "Nineteen" };
 
-        String result = ""; //@ Initialize the result String
+        String result = ""; // @ Initialize the result String
 
-        //$ Process Billions place if applicable
+        // $ Process Billions place if applicable
         if (number >= 1000000000) {
             result += numberToWords(number / 1000000000) + " Billion ";
-            number %= 1000000000;   //@ Reduce the number
+            number %= 1000000000; // @ Reduce the number
         }
 
-        //$ Process Millions place if applicable
+        // $ Process Millions place if applicable
         if (number >= 1000000) {
             result += numberToWords(number / 1000000) + " Million ";
-            number %= 1000000;  //@ Reduce the number
+            number %= 1000000; // @ Reduce the number
         }
 
-        //$ Process Thousands place if applicable
+        // $ Process Thousands place if applicable
         if (number >= 1000) {
             result += numberToWords(number / 1000) + " Thousand ";
-            number %= 1000; //@ Reduce the number
+            number %= 1000; // @ Reduce the number
         }
 
-        //$ Process Hundreds place if applicable
+        // $ Process Hundreds place if applicable
         if (number >= 100) {
             result += numberToWords(number / 100) + " Hundred ";
-            number %= 100;  //@ Reduce the number
+            number %= 100; // @ Reduce the number
         }
 
-        //$ Process Tens place if applicable
+        // $ Process Tens place if applicable
         if (number >= 20) {
             result += tens[number / 10] + " ";
-            number %= 10;   //@ Reduce the number
+            number %= 10; // @ Reduce the number
         }
 
-        //$ Process Units place
+        // $ Process Units place
         if (number > 0) {
             if (number < 10) {
                 result += units[number] + " ";
@@ -361,7 +363,7 @@ public class leetcode {
             }
         }
 
-        //$ Return the result
-        return result.trim();   //@ Trim any extra spaces
+        // $ Return the result
+        return result.trim(); // @ Trim any extra spaces
     }
 }
