@@ -1,4 +1,4 @@
-def count_citizens_over_60(details_of_citizens):
+def countCitizensOver60(details_of_citizens):
     # Initialize counter
     count = 0
     
@@ -19,7 +19,7 @@ details_of_citizens = [
 ]
 
 # Count citizens over 60
-count = count_citizens_over_60(details_of_citizens)
+count = countCitizensOver60(details_of_citizens)
 
 # Print result
 print(f"There are {count} people who are over 60 years old")
