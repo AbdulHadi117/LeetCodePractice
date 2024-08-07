@@ -83,5 +83,5 @@ def numberToWords(number):
 
 # Example usage
 number = 47483000  # Example number
-print(numberToWords(number))  
+print(numberToWords(number))
 # Output: "Forty Seven Million Four Hundred Eighty Three Thousand"
