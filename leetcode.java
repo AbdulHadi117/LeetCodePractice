@@ -1,7 +1,10 @@
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.BiPredicate;
 
 public class leetcode {
 
@@ -365,5 +368,58 @@ public class leetcode {
 
         // $ Return the result
         return result.trim(); // @ Trim any extra spaces
+    }
+
+    // % Spiral Matrix III
+    public List<int[]> sprialMatrixIII(int rows, int columns, int rStart, int cStart) {
+        // $ List to Store the traversed Positions
+        List<int[]> traversedPosition = new ArrayList<>();
+        traversedPosition.add(new int[] { rStart, cStart }); // @ Start with initial position
+
+        // $ Predicate to check if the position is valid
+        BiPredicate<Integer, Integer> isValid = (row, col) -> (row >= 0 && row < rows) && (col >= 0 && col < columns);
+
+        int steps = 0; // @ Steps to move in each direction
+        int currentRow = rStart, currentCol = cStart; // @ Current position on Grid
+
+        // $ Loop until all positions are traversed
+        while (traversedPosition.size() < rows * columns) {
+            steps++; // @ Increment StepSize for Spiral Movement
+
+            // $ Loop through steps to move in Right and Down direction
+
+            for (int i = 0; i < steps; i++) {
+                currentCol++; // @ Move Right to Next Column
+                if (isValid.test(currentRow, currentCol)) {
+                    traversedPosition.add(new int[] { currentRow, currentCol });
+                } // @ Add Position if its within bounds of Grid
+            }
+
+            for (int i = 0; i < steps; i++) {
+                currentRow++; // @ Move Down to Next Row
+                if (isValid.test(currentRow, currentCol)) {
+                    traversedPosition.add(new int[] { currentRow, currentCol });
+                } // @ Add Position if its within bounds of Grid
+            }
+
+            steps++; // @ Increment StepSize for Spiral Movement
+
+            // $ Loop through steps to move in Up and Left direction
+            for (int i = 0; i < steps; i++) {
+                currentCol--; // @ Move left to the Previous Column
+                if (isValid.test(currentRow, currentCol)) {
+                    traversedPosition.add(new int[] { currentRow, currentCol });
+                } // @ Add Position if its within bounds of Grid
+            }
+            for (int i = 0; i < steps; i++) {
+                currentRow--; // @ Move Up to the previous Row
+                if (isValid.test(currentRow, currentCol)) {
+                    traversedPosition.add(new int[] { currentRow, currentCol });
+                } // @ Add Position if its within bounds of Grid
+            }
+        }
+
+        // $ Return the list of traversed positions
+        return traversedPosition;
     }
 }
