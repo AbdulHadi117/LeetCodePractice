@@ -146,7 +146,7 @@ public class leetcode {
             double orderTime = customer[0];
             double prepTime = customer[1];
 
-            // * */ Calculate the time the customer will be free
+            // * Calculate the time the customer will be free
             double freeTime = Math.max(currentTime, orderTime) + prepTime;
             double waitTime = freeTime - orderTime;
             totalWaitingTime += waitTime;
@@ -421,5 +421,64 @@ public class leetcode {
 
         // $ Return the list of traversed positions
         return traversedPosition;
+    }
+
+    public int numMagicSquaresInside(int[][] grid) {
+        // $ Initialize counter for the number of magic squares
+        int count = 0;
+        int rows = grid.length; // @ Get the number of rows in the grid
+        int cols = grid[0].length; // @ Get the number of columns in the grid
+
+        // $ Iterate over each possible 3x3 subgrid in the grid
+        for (int row = 0; row < rows - 2; row++) {
+            for (int col = 0; col < cols - 2; col++) {
+
+                // * Check if the current 3x3 subgrid is a magic square
+                boolean[] alreadySeenElement = new boolean[10]; // @ Track seen numbers
+                boolean isMagic = true;
+
+                // * Validate all numbers in the 3x3 subgrid
+                for (int i = 0; i < 3 && isMagic; i++) {
+                    for (int j = 0; j < 3 && isMagic; j++) {
+                        int num = grid[row + i][col + j];
+                        // @ Check if number is within 1-9 and not already seen
+                        if (num < 1 || num > 9 || alreadySeenElement[num]) {
+                            isMagic = false;
+                        }
+                        alreadySeenElement[num] = true;
+                    }
+                }
+
+                if (!isMagic)
+                    continue;
+
+                // * Calculate the diagonal sums
+                int diagonal1 = grid[row][col] + grid[row + 1][col + 1] + grid[row + 2][col + 2];
+                int diagonal2 = grid[row + 2][col] + grid[row + 1][col + 1] + grid[row][col + 2];
+
+                if (diagonal1 != diagonal2)
+                    continue; // @ Check if diagonals have the same sum
+
+                // * Calculate the row sums
+                int row1 = grid[row][col] + grid[row][col + 1] + grid[row][col + 2];
+                int row2 = grid[row + 1][col] + grid[row + 1][col + 1] + grid[row + 1][col + 2];
+                int row3 = grid[row + 2][col] + grid[row + 2][col + 1] + grid[row + 2][col + 2];
+
+                if (row1 != diagonal1 || row2 != diagonal1 || row3 != diagonal1)
+                    continue; // @ Check if all rows have the same sum
+
+                // * Calculate the column sums
+                int col1 = grid[row][col] + grid[row + 1][col] + grid[row + 2][col];
+                int col2 = grid[row][col + 1] + grid[row + 1][col + 1] + grid[row + 2][col + 1];
+                int col3 = grid[row][col + 2] + grid[row + 1][col + 2] + grid[row + 2][col + 2];
+
+                if (col1 != diagonal1 || col2 != diagonal1 || col3 != diagonal1)
+                    continue; // @ Check if all columns have the same sum
+
+                // * If all checks pass, it is a magic square
+                count++;
+            }
+        }
+        return count; // @ Return the total number of magic squares found
     }
 }
