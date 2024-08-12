@@ -2,8 +2,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiPredicate;
 
 public class leetcode {
@@ -542,5 +544,30 @@ public class leetcode {
 
         // $ Call helper method with initial carry of 0
         return helper.addTwoNumbersHelper(l1, l2, 0);
+    }
+
+    // % Find the length of longest substring without repeating charcaters
+    public int lengthOfLongestSubstring(String s){
+        // $ Initialize pointers and set
+        int start = 0;                //@ Start of the window
+        int maxLength = 0;           //@ Maximum length of substring found
+        Set<Character> charSet = new HashSet<>(); //@ Set to track characters in the current window
+        
+        //$ Iterate over each character in the string with the end pointer
+        for (int end = 0; end < s.length(); end++) {
+            // * If character is already in the set, remove characters from the start pointer
+            while (charSet.contains(s.charAt(end))) {
+                charSet.remove(s.charAt(start));
+                start++;
+            }
+            
+            charSet.add(s.charAt(end)); //@ Add the current character to the set
+            
+            //* Update the maximum length found
+            maxLength = Math.max(maxLength, end - start + 1);
+        }
+        
+        //$ Return the maximum length
+        return maxLength;
     }
 }
