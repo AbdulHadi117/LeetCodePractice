@@ -7,6 +7,17 @@ import java.util.Map;
 import java.util.function.BiPredicate;
 
 public class leetcode {
+    // % ListNode DataType
+    public class ListNode {
+        int data; // @ Holds the data passed into ListNode
+        ListNode next; // @ Recursive pointer to the next ListNode
+
+        // $ Implementation of the ListNode
+        ListNode(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
 
     // % Find two indices in the array that add up to the target
     public int[] twoSum(int[] inputArray, int target) {
@@ -423,6 +434,7 @@ public class leetcode {
         return traversedPosition;
     }
 
+    // % Number of Magic Squares Inside a Grid
     public int numMagicSquaresInside(int[][] grid) {
         // $ Initialize counter for the number of magic squares
         int count = 0;
@@ -480,5 +492,55 @@ public class leetcode {
             }
         }
         return count; // @ Return the total number of magic squares found
+    }
+
+    // % Add two numbers represented by linked lists.
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        // $ Helper Functions
+        class Helper {
+            // $ Helper method to perform the addition with carry.
+            private ListNode addTwoNumbersHelper(ListNode l1, ListNode l2, int carry) {
+                // * Base case: If both lists are exhausted and no carry, return null
+                if (l1 == null && l2 == null && carry == 0) {
+                    return null;
+                }
+
+                // * Get values from the current nodes
+                int val1 = (l1 == null) ? 0 : l1.data;
+                int val2 = (l2 == null) ? 0 : l2.data; // @ 0 if node is null
+
+                // * Add the values and carry
+                int sum = val1 + val2 + carry;
+                carry = sum / 10; // @ Update carry for the next node
+
+                // * Create a new node with the digit of the sum
+                ListNode result = new ListNode(sum % 10);
+
+                // * Recursively call the next node with updated carry
+                result.next = addTwoNumbersHelper((l1 == null) ? null : l1.next,
+                        (l2 == null) ? null : l2.next, carry);
+
+                return result;
+            }
+
+            // $ Helper method to print the linked list.
+            private void printLinkedList(ListNode node) {
+                while (node != null) {
+                    // * Print the value of the current node followed by " -> "
+                    System.out.print(node.data + (node.next != null ? " -> " : "\n"));
+                    node = node.next; // @ Move to the next node
+                }
+            }
+        }
+
+        // $ Create a new Helper object
+        Helper helper = new Helper();
+
+        // $ Print the original lists
+        helper.printLinkedList(l1);
+        helper.printLinkedList(l2);
+
+        // $ Call helper method with initial carry of 0
+        return helper.addTwoNumbersHelper(l1, l2, 0);
     }
 }
