@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.function.BiPredicate;
 
@@ -547,27 +548,57 @@ public class leetcode {
     }
 
     // % Find the length of longest substring without repeating charcaters
-    public int lengthOfLongestSubstring(String s){
+    public int lengthOfLongestSubstring(String s) {
         // $ Initialize pointers and set
-        int start = 0;                //@ Start of the window
-        int maxLength = 0;           //@ Maximum length of substring found
-        Set<Character> charSet = new HashSet<>(); //@ Set to track characters in the current window
-        
-        //$ Iterate over each character in the string with the end pointer
+        int start = 0; // @ Start of the window
+        int maxLength = 0; // @ Maximum length of substring found
+        Set<Character> charSet = new HashSet<>(); // @ Set to track characters in the current window
+
+        // $ Iterate over each character in the string with the end pointer
         for (int end = 0; end < s.length(); end++) {
-            // * If character is already in the set, remove characters from the start pointer
+            // * If character is already in the set, remove characters from the start
+            // pointer
             while (charSet.contains(s.charAt(end))) {
                 charSet.remove(s.charAt(start));
                 start++;
             }
-            
-            charSet.add(s.charAt(end)); //@ Add the current character to the set
-            
-            //* Update the maximum length found
+
+            charSet.add(s.charAt(end)); // @ Add the current character to the set
+
+            // * Update the maximum length found
             maxLength = Math.max(maxLength, end - start + 1);
         }
-        
-        //$ Return the maximum length
+
+        // $ Return the maximum length
         return maxLength;
+    }
+
+    // % KthLargest class to find the kth largest element
+    public static final class KthLargest {
+        private final int k; // @ The kth largest element to find
+        private final PriorityQueue<Integer> minHeap; // @ Min-heap to store the k largest elements
+
+        // $ Constructor to initialize the min-heap and add elements from the array
+        public KthLargest(int k, int[] nums) {
+            this.k = k;
+            this.minHeap = new PriorityQueue<>(); // @ Initialize min-heap
+
+            // * Add elements to the heap
+            for (int num : nums) {
+                add(num);
+            }
+        }
+
+        // $ Adds a value to the heap and returns the kth largest element
+        public int add(int val) {
+            minHeap.offer(val); // @ Add the new value to the heap
+
+            // * If heap exceeds size k, remove the smallest element
+            if (minHeap.size() > k) {
+                minHeap.poll();
+            }
+
+            return minHeap.peek(); // @ Return the kth largest element
+        }
     }
 }
