@@ -601,4 +601,65 @@ public class leetcode {
             return minHeap.peek(); // @ Return the kth largest element
         }
     }
+
+    // % Find the longest palindromic substring
+    public String longestPalindrome(String s) {
+        // $ Check if the input string is null or empty
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+
+        // $ Preprocess the input string
+        StringBuilder sPrime = new StringBuilder("#");
+        for (char c : s.toCharArray()) {
+            sPrime.append(c).append("#");
+        }
+
+        int n = sPrime.length(); // @ Length of Transformed String
+        int[] palindromeRadii = new int[n]; // @ Array to store the radius of palindromes
+        int center = 0; // @ Center of Current rightmost palindrome
+        int radius = 0; // @ Right edge of current rightmost palindrome
+
+        for (int i = 0; i < n; i++) {
+            // * Calculate the mirror index of the current index `i`
+            int mirror = 2 * center - i;
+
+            // * Use the mirror's radius to initialize the current index's radius
+            if (i < radius) {
+                palindromeRadii[i] = Math.min(
+                        radius - i,
+                        palindromeRadii[mirror]);
+            }
+
+            // * Expand the palindrome centered at `i`
+            while (i + 1 + palindromeRadii[i] < n &&
+                    i - 1 - palindromeRadii[i] >= 0 &&
+                    sPrime.charAt(i + 1 + palindromeRadii[i]) == sPrime.charAt(i - 1 - palindromeRadii[i])) {
+                palindromeRadii[i]++;
+            }
+
+            // * Update the center and radius if necessary
+            if (i + palindromeRadii[i] > radius) {
+                center = i;
+                radius = i + palindromeRadii[i];
+            }
+        }
+
+        // $ Find the maximum radius and its center Index
+        int maxLength = 0;
+        int centerIndex = 0;
+        for (int i = 0; i < n; i++) {
+            if (palindromeRadii[i] > maxLength) {
+                maxLength = palindromeRadii[i];
+                centerIndex = i;
+            }
+        }
+        int startIndex = (centerIndex - maxLength) / 2; // @ starting index of the longest palindrome
+
+        // $ Return the longest palindrome
+        String longestPalindrome = s.substring(
+                startIndex, startIndex + maxLength);
+
+        return longestPalindrome;
+    }
 }
