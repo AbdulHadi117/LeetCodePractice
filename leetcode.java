@@ -662,4 +662,44 @@ public class leetcode {
 
         return longestPalindrome;
     }
+
+    // % Convert a string to zigzag pattern
+    public String convert(String s, int numRows) {
+        if (numRows == 1 || numRows >= s.length()) {
+            return s;
+        }
+
+        // $ Initialize a StringBuilder array, one for each row
+        StringBuilder[] res = new StringBuilder[numRows];
+        for (int i = 0; i < numRows; i++) {
+            res[i] = new StringBuilder();
+        }
+
+        // $ Set the initial index to 0 and the step (direction) to 1 (downwards)
+        int index = 0, step = 1;
+
+        // $ Iterate over each character in the string
+        for (char c : s.toCharArray()) {
+            // * Append the character to the current row's StringBuilder
+            res[index].append(c);
+
+            if (index == 0) {
+                step = 1; // @start moving down (step = 1)
+            } else if (index == numRows - 1) {
+                step = -1; // @ start moving up (step = -1)
+            }
+
+            // * Move to the next row depending on the current direction (step)
+            index += step;
+        }
+
+        // $ Combine all rows into a single string
+        StringBuilder result = new StringBuilder();
+        for (StringBuilder row : res) {
+            result.append(row);
+        }
+
+        // $ Return the final zigzag-converted string
+        return result.toString();
+    }
 }
