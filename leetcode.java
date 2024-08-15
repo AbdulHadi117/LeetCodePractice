@@ -702,4 +702,44 @@ public class leetcode {
         // $ Return the final zigzag-converted string
         return result.toString();
     }
+
+    // % Check if you can provide Lemonde Change
+    public boolean lemonadeChange(int[] bills) {
+        // $ Initialize counters for five and ten dollar bills
+        int five = 0, ten = 0;
+        // $ Iterate through each bill in the given array
+        for (int bill : bills) {
+            switch (bill) {
+                // * If the bill is five dollar,
+                case 5 -> five++; // @ Increment the five dollar counter
+                // * If the bill is ten dollar,
+                case 10 -> {
+                    // @ If we don't have any five dollar bill, return false
+                    if (five == 0) {
+                        return false;
+                    }
+                    five--; // @ Decrement the five dollar counter
+                    ten++; // @ Increment the ten dollar counter
+                }
+                // * If the bill is twenty dollar
+                case 20 -> {
+                    // @ If we have five and ten dollar bills,
+                    if (five > 0 && ten > 0) {
+                        five--; // @ Decrement the five dollar counter
+                        ten--; // @ Decrement the ten dollar counter
+                    }
+                    // @ If we don't have ten but we have 3 or more five dollar bill
+                    else if (five >= 3) {
+                        five -= 3; // @ Decrement the five dollar counter by 3
+                    }
+                    // @ If we don't have any five or ten dollar bill, return false
+                    else {
+                        return false;
+                    }
+                }
+            }
+        }
+        // $ Return true if we Can make change
+        return true;
+    }
 }
