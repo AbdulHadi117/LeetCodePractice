@@ -742,4 +742,32 @@ public class leetcode {
         // $ Return true if we Can make change
         return true;
     }
+
+    public int maxDistance(List<List<Integer>> arrays){
+        // $ Initialize the min,max values and maximum distance
+        int minVal = arrays.get(0).get(0);  //@ first element of first array
+        int maxVal = arrays.get(0).get(arrays.get(0).size() - 1);  //@ last element of first array
+        int maxDistance = 0; //@ To store the maximum distance found
+
+        //$ Iterate through each array starting from second one
+        for (int index = 1; index < arrays.size(); index++){
+            List<Integer> currentArray = arrays.get(index);
+
+            // * Calculate the potential maximum distance by considering:
+            maxDistance = Math.max(
+                maxDistance,        //@ Current maximum distance
+                Math.max(
+                    Math.abs(currentArray.get(currentArray.size() - 1) - minVal),  //@ Distance between current array's max and overall min
+                    Math.abs(maxVal - currentArray.get(0))      //@ Distance between overall max and current array's min
+                )
+            );
+
+            //* Update minVal and maxVal with the current array's first and last elements
+            minVal = Math.min(minVal, currentArray.get(0));
+            maxVal = Math.max(maxVal, currentArray.get(currentArray.size() - 1));
+        }
+        
+    // $ Return the maximum distance
+    return maxDistance;
+    }
 }
