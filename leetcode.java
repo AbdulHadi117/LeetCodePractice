@@ -793,7 +793,6 @@ public class leetcode {
 
             // * Update the result
             result = result * 10 + digit;
-
             x /= 10; // @ Remove the last digit from x
         }
 
