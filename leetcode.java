@@ -743,31 +743,61 @@ public class leetcode {
         return true;
     }
 
-    public int maxDistance(List<List<Integer>> arrays){
+    public int maxDistance(List<List<Integer>> arrays) {
         // $ Initialize the min,max values and maximum distance
-        int minVal = arrays.get(0).get(0);  //@ first element of first array
-        int maxVal = arrays.get(0).get(arrays.get(0).size() - 1);  //@ last element of first array
-        int maxDistance = 0; //@ To store the maximum distance found
+        int minVal = arrays.get(0).get(0); // @ first element of first array
+        int maxVal = arrays.get(0).get(arrays.get(0).size() - 1); // @ last element of first array
+        int maxDistance = 0; // @ To store the maximum distance found
 
-        //$ Iterate through each array starting from second one
-        for (int index = 1; index < arrays.size(); index++){
+        // $ Iterate through each array starting from second one
+        for (int index = 1; index < arrays.size(); index++) {
             List<Integer> currentArray = arrays.get(index);
 
             // * Calculate the potential maximum distance by considering:
             maxDistance = Math.max(
-                maxDistance,        //@ Current maximum distance
-                Math.max(
-                    Math.abs(currentArray.get(currentArray.size() - 1) - minVal),  //@ Distance between current array's max and overall min
-                    Math.abs(maxVal - currentArray.get(0))      //@ Distance between overall max and current array's min
-                )
-            );
+                    maxDistance, // @ Current maximum distance
+                    Math.max(
+                            Math.abs(currentArray.get(currentArray.size() - 1) - minVal), // @ Distance between current
+                                                                                          // array's max and overall min
+                            Math.abs(maxVal - currentArray.get(0)) // @ Distance between overall max and current array's
+                                                                   // min
+                    ));
 
-            //* Update minVal and maxVal with the current array's first and last elements
+            // * Update minVal and maxVal with the current array's first and last elements
             minVal = Math.min(minVal, currentArray.get(0));
             maxVal = Math.max(maxVal, currentArray.get(currentArray.size() - 1));
         }
-        
-    // $ Return the maximum distance
-    return maxDistance;
+
+        // $ Return the maximum distance
+        return maxDistance;
+    }
+
+    // % Reverse the integer within range
+    public int reverse(int x) {
+        // $ Initialize the result to store the reversed number
+        int result = 0;
+
+        // $ Loop to reverse the digits of the Number
+        while (x != 0) {
+            int digit = x % 10; // @ Extract the last digit of number
+
+            // *Check if the current result will overflow
+            if ((result > Integer.MAX_VALUE / 10)
+                    || (result == Integer.MAX_VALUE / 10 && digit > 7)) {
+                return 0; // @ Overflow case for positive numbers
+            }
+            if ((result < Integer.MIN_VALUE / 10)
+                    || (result == Integer.MIN_VALUE / 10 && digit < -8)) {
+                return 0; // @ Overflow case for negative numbers
+            }
+
+            // * Update the result
+            result = result * 10 + digit;
+
+            x /= 10; // @ Remove the last digit from x
+        }
+
+        // $ Return the reversed number
+        return result;
     }
 }
