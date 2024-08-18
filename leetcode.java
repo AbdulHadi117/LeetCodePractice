@@ -799,4 +799,42 @@ public class leetcode {
         // $ Return the reversed number
         return result;
     }
+
+    // % Find the nth ugly number
+    public int nthUglyNumber(int n) {
+        // $ Initialize an array to store the ugly numbers
+        int[] uglyNumbers = new int[n];
+        uglyNumbers[0] = 1; // @ As 1 is the first ugly number
+
+        // $ Initialize three counters
+        int i2 = 0, i3 = 0, i5 = 0;
+
+        // $ Loop to find the nth ugly number
+        for (int i = 1; i < n; i++) {
+
+            // * Find the next ugly number
+            int nextMultipleOf2 = uglyNumbers[i2] * 2;
+            int nextMultipleOf3 = uglyNumbers[i3] * 3;
+            int nextMultipleOf5 = uglyNumbers[i5] * 5;
+
+            int nextUglyNumber = Math.min(Math.min(nextMultipleOf2, nextMultipleOf3), nextMultipleOf5);
+
+            // * Update the counters
+            if (nextUglyNumber == nextMultipleOf2) {
+                i2++;
+            }
+            if (nextUglyNumber == nextMultipleOf3) {
+                i3++;
+            }
+            if (nextUglyNumber == nextMultipleOf5) {
+                i5++;
+            }
+
+            // * Store the next ugly number
+            uglyNumbers[i] = nextUglyNumber;
+        }
+
+        // $ Return the nth ugly number
+        return uglyNumbers[n - 1];
+    }
 }
