@@ -837,4 +837,34 @@ public class leetcode {
         // $ Return the nth ugly number
         return uglyNumbers[n - 1];
     }
+
+    public int myAtoi(String s) {
+        // $ Initialize variables
+        int idx = 0, sign = 1, res = 0;
+
+        // $ Ignore leading whitespaces
+        while (idx < s.length() && s.charAt(idx) == ' ') {
+            idx++;
+        }
+
+        // $ Check if the next character is '-' or '+'
+        if (idx < s.length() && (s.charAt(idx) == '+' || s.charAt(idx) == '-')) {
+            sign = s.charAt(idx) == '+' ? 1 : -1;
+            idx++;
+        }
+
+        // $ Convert valid digits to integer
+        while (idx < s.length() && Character.isDigit(s.charAt(idx))) {
+            int digit = s.charAt(idx) - '0';
+            if ((res > Integer.MAX_VALUE / 10) || (res == Integer.MAX_VALUE / 10 && digit > 7)) {
+                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            } // @ If value goes out of range
+            res = 10 * res + digit;
+            idx++;
+        }
+        return sign * res;
+
+        // $ Return the final result
+
+    }
 }
