@@ -14,10 +14,10 @@ def maxArea(height):
         length = rightIndex - leftIndex
 
         # calculate the width of the current container
-        wdith = min(height[leftIndex], height[rightIndex])
+        width = min(height[leftIndex], height[rightIndex])
 
         # calculate the area of the current container
-        area = length * wdith
+        area = length * width
 
         # update max_area
         max_area = max(area, max_area)

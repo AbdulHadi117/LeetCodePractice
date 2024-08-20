@@ -867,4 +867,27 @@ public class leetcode {
         // $ Return the final result
 
     }
+
+    public int maxArea(int[] height) {
+        // $ Initialize Variables
+        int maxArea = 0, leftIndex = 0, rightIndex = height.length - 1;
+
+        // $ Loop through the height from left to right
+        while (leftIndex < rightIndex) {
+            int length = rightIndex - leftIndex; // @ Length of Current Container
+            int width = Math.min(height[leftIndex], height[rightIndex]); // @ Width of Current Container
+            int area = length * width; // @ Area of Current Container
+
+            // * Update the maximum area
+            maxArea = Math.max(area, maxArea);
+
+            // * Update the pointers to move in array
+            if (height[leftIndex] < height[rightIndex]) {
+                leftIndex++;
+            } else {
+                rightIndex--;
+            }
+        }
+        return maxArea;
+    }
 }
