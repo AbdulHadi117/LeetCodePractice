@@ -838,6 +838,7 @@ public class leetcode {
         return uglyNumbers[n - 1];
     }
 
+    // % Convert String to Integer Values (ATOI)
     public int myAtoi(String s) {
         // $ Initialize variables
         int idx = 0, sign = 1, res = 0;
@@ -868,6 +869,7 @@ public class leetcode {
 
     }
 
+    // % Find the maximum area with most water contained
     public int maxArea(int[] height) {
         // $ Initialize Variables
         int max_area = 0, leftIndex = 0, rightIndex = height.length - 1;
@@ -889,5 +891,32 @@ public class leetcode {
             }
         }
         return max_area;
+    }
+
+    // % Find the complement of the Number given
+    public int findComplement(int num) {
+        // $ Convert the number to binary
+        String binary = "";
+        while (num > 0) {
+            binary = (num % 2) + binary;
+            num /= 2;
+        }
+
+        // $ Convert the binary to complement
+        String flipped = "";
+        for (int index = 0; index < binary.length(); index++) {
+            if (binary.charAt(index) == '0') {
+                flipped += '1';
+            } else {
+                flipped += '0';
+            }
+        }
+
+        // $ Convert the complement to decimal
+        int result = 0;
+        for (int index = 0; index < flipped.length(); index++) {
+            result = result * 2 + (flipped.charAt(index) - '0');
+        }
+        return result;
     }
 }
