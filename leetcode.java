@@ -893,6 +893,43 @@ public class leetcode {
         return max_area;
     }
 
+    //% Convert Roman Number String to Integer Value
+
+    public int romanToInt(String s) {
+        // $ Mapping of Roman numerals to their corresponding integer values
+        Map<Character, Integer> values = new HashMap<>();
+        values.put('I', 1);
+        values.put('V', 5);
+        values.put('X', 10);
+        values.put('L', 50);
+        values.put('C', 100);
+        values.put('D', 500);
+        values.put('M', 1000);
+
+        // $ Initialize variables to =
+        int ans = 0;
+        int prevVal = 0;
+
+        // $ Iterate over given string in reverse order
+        for (int i = s.length() - 1; i >= 0; i--) {
+            // * Get current value of character
+            int currentVal = values.get(s.charAt(i));
+
+            // * If current value is less than previous value
+            if (currentVal < prevVal) {
+                ans -= currentVal; // @ subtract from answer
+            } else {
+                ans += currentVal; // @ Otherwise, add to answer
+            }
+
+            // $ Update previous value
+            prevVal = currentVal;
+        }
+
+        // $ Return answer
+        return ans;
+    }
+
     // % Find the complement of the Number given
     public int findComplement(int num) {
         // $ Convert the number to binary
