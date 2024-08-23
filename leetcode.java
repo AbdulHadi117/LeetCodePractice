@@ -893,7 +893,7 @@ public class leetcode {
         return max_area;
     }
 
-    //% Convert Roman Number String to Integer Value
+    // % Convert Roman Number String to Integer Value
 
     public int romanToInt(String s) {
         // $ Mapping of Roman numerals to their corresponding integer values
@@ -955,5 +955,61 @@ public class leetcode {
             result = result * 2 + (flipped.charAt(index) - '0');
         }
         return result;
+    }
+
+    // % Calculate the fraction Addition and Subtraction
+
+    public String fractionAddition(String expression) {
+        // $ Initialize the result variables
+        int resNum = 0, resDenom = 1;
+
+        // $ Split the expression into fractions
+        String[] fractions = expression.replace("+", " +").replace("-", " -").split("\\s+");
+
+        // $ Iterate over the fractions and add them to the result
+        for (String fraction : fractions) {
+            if (fraction.isEmpty() || !fraction.contains("/")) {
+                continue;
+            }
+
+            String[] currFraction = fraction.split("/");
+            if (currFraction.length != 2) {
+                continue;
+            }
+
+            int currNum = Integer.parseInt(currFraction[0]);
+            int currDenom = Integer.parseInt(currFraction[1]);
+
+            // * Add the current fraction to the result
+            resNum = resNum * currDenom + currNum * resDenom;
+            resDenom = resDenom * currDenom;
+        }
+
+        // $ Determine if the result is negative
+        boolean isNegative = false;
+        if (resNum < 0 || resDenom < 0) {
+            isNegative = true;
+        }
+
+        int gcdVal = gcd(resNum, resDenom); // @ Calculate the greatest common divisor
+
+        // $ Update the result with the greatest common divisor
+        resNum = Math.abs(resNum / gcdVal);
+        resDenom = Math.abs(resDenom / gcdVal);
+
+        // $ Return the result as a string
+        if (isNegative) {
+            return "-" + resNum + "/" + resDenom;
+        }
+        return resNum + "/" + resDenom;
+    }
+
+    private int gcd(int a, int b) {
+        // @ If a is zero, return b
+        if (a == 0) {
+            return b;
+        }
+        // @ Calculate the greatest common divisor recursively
+        return gcd(b % a, a);
     }
 }
