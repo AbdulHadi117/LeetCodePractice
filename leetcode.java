@@ -1012,4 +1012,30 @@ public class leetcode {
         // @ Calculate the greatest common divisor recursively
         return gcd(b % a, a);
     }
+
+    //% Match the Regular Expression with Pattern
+    public boolean isMatch(String text, String pattern){
+        // $ Create a 2D array to store the dynamic programming results
+        boolean[][] dp = new boolean[text.length() + 1][pattern.length() + 1];
+        // $ Initialize the last element of the 2D array to true
+        dp[text.length()][pattern.length()] = true;
+
+        // $ Iterate over the text and pattern in reverse order
+        for (int i = text.length(); i >= 0; i--) {
+            for (int j = pattern.length() - 1; j >= 0; j--){
+                // * Check if the current character in the text matches the current character in the pattern
+                boolean match = (i < text.length() && (pattern.charAt(j) == text.charAt(i) || pattern.charAt(j) == '.'));
+                // * Check if the current character in the pattern is '*'
+                if (j + 1 < pattern.length() && pattern.charAt(j + 1) == '*'){
+                    // @ If it is, check if the current character in the text matches the preceding character in the pattern, and if so, move to the next character in the text and pattern
+                    dp[i][j] = dp[i][j + 2] || (match && dp[i + 1][j]);
+                }else{
+                    // @ If not, just check if the current character in the text matches the current character in the pattern
+                    dp[i][j] = match && dp[i + 1][j + 1];
+                }
+            }
+        }
+        // $ Return the result of the dynamic programming
+        return dp[0][0];
+    }
 }
