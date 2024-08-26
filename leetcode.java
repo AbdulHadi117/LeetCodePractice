@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.Stack;
 import java.util.function.BiPredicate;
 
 public class leetcode {
@@ -1038,4 +1039,31 @@ public class leetcode {
         // $ Return the result of the dynamic programming
         return dp[0][0];
     }
+
+    // % Valid Parentheses
+    public boolean isValid(String s) {
+    //$ Create a mapping of opening to closing parentheses
+    Map<Character, Character> mapping = new HashMap<>();
+    mapping.put('(', ')');
+    mapping.put('[', ']');
+    mapping.put('{', '}');
+    //$ Initialize a stack to keep track of the parentheses
+    Stack<Character> stack = new Stack<>();
+    //$ Iterate over each character in the string
+    for (char c : s.toCharArray()) {
+        //* If the character is an opening parenthesis,
+        if (mapping.containsKey(c)) {
+            stack.push(mapping.get(c)); //@ push its closing parenthesis onto the stack
+        } 
+        //* If the character is a closing parenthesis,
+        else {
+            if (stack.isEmpty() || stack.pop() != c) {
+                return false; //@ If the stack is empty or the top of the stack doesn't match the current character
+
+            }
+        }
+    }
+    //$ If the stack is empty after iterating over the entire string
+    return stack.isEmpty();
+}
 }
