@@ -1014,8 +1014,8 @@ public class leetcode {
         return gcd(b % a, a);
     }
 
-    //% Match the Regular Expression with Pattern
-    public boolean isMatch(String text, String pattern){
+    // % Match the Regular Expression with Pattern
+    public boolean isMatch(String text, String pattern) {
         // $ Create a 2D array to store the dynamic programming results
         boolean[][] dp = new boolean[text.length() + 1][pattern.length() + 1];
         // $ Initialize the last element of the 2D array to true
@@ -1023,15 +1023,20 @@ public class leetcode {
 
         // $ Iterate over the text and pattern in reverse order
         for (int i = text.length(); i >= 0; i--) {
-            for (int j = pattern.length() - 1; j >= 0; j--){
-                // * Check if the current character in the text matches the current character in the pattern
-                boolean match = (i < text.length() && (pattern.charAt(j) == text.charAt(i) || pattern.charAt(j) == '.'));
+            for (int j = pattern.length() - 1; j >= 0; j--) {
+                // * Check if the current character in the text matches the current character in
+                // the pattern
+                boolean match = (i < text.length()
+                        && (pattern.charAt(j) == text.charAt(i) || pattern.charAt(j) == '.'));
                 // * Check if the current character in the pattern is '*'
-                if (j + 1 < pattern.length() && pattern.charAt(j + 1) == '*'){
-                    // @ If it is, check if the current character in the text matches the preceding character in the pattern, and if so, move to the next character in the text and pattern
+                if (j + 1 < pattern.length() && pattern.charAt(j + 1) == '*') {
+                    // @ If it is, check if the current character in the text matches the preceding
+                    // character in the pattern, and if so, move to the next character in the text
+                    // and pattern
                     dp[i][j] = dp[i][j + 2] || (match && dp[i + 1][j]);
-                }else{
-                    // @ If not, just check if the current character in the text matches the current character in the pattern
+                } else {
+                    // @ If not, just check if the current character in the text matches the current
+                    // character in the pattern
                     dp[i][j] = match && dp[i + 1][j + 1];
                 }
             }
@@ -1042,28 +1047,47 @@ public class leetcode {
 
     // % Valid Parentheses
     public boolean isValid(String s) {
-    //$ Create a mapping of opening to closing parentheses
-    Map<Character, Character> mapping = new HashMap<>();
-    mapping.put('(', ')');
-    mapping.put('[', ']');
-    mapping.put('{', '}');
-    //$ Initialize a stack to keep track of the parentheses
-    Stack<Character> stack = new Stack<>();
-    //$ Iterate over each character in the string
-    for (char c : s.toCharArray()) {
-        //* If the character is an opening parenthesis,
-        if (mapping.containsKey(c)) {
-            stack.push(mapping.get(c)); //@ push its closing parenthesis onto the stack
-        } 
-        //* If the character is a closing parenthesis,
-        else {
-            if (stack.isEmpty() || stack.pop() != c) {
-                return false; //@ If the stack is empty or the top of the stack doesn't match the current character
+        // $ Create a mapping of opening to closing parentheses
+        Map<Character, Character> mapping = new HashMap<>();
+        mapping.put('(', ')');
+        mapping.put('[', ']');
+        mapping.put('{', '}');
+        // $ Initialize a stack to keep track of the parentheses
+        Stack<Character> stack = new Stack<>();
+        // $ Iterate over each character in the string
+        for (char c : s.toCharArray()) {
+            // * If the character is an opening parenthesis,
+            if (mapping.containsKey(c)) {
+                stack.push(mapping.get(c)); // @ push its closing parenthesis onto the stack
+            }
+            // * If the character is a closing parenthesis,
+            else {
+                if (stack.isEmpty() || stack.pop() != c) {
+                    return false; // @ If the stack is empty or the top of the stack doesn't match the current
+                                  // character
 
+                }
             }
         }
+        // $ Return true if the stack is empty
+        return stack.isEmpty();
     }
-    //$ If the stack is empty after iterating over the entire string
-    return stack.isEmpty();
-}
+
+    // % Pass The Pillow
+    public int passThePillow(int n, int time) {
+        // $ Calculate the number of cycles
+        int cyc = time / (n - 1);
+        // $ Calculate the remainder
+        int rem = time % (n - 1);
+        // * If the number of cycles is odd,
+        if (cyc % 2 != 0) {
+            // @ Return the person who has the pillow after time seconds
+            return n - rem;
+        } 
+        // * If the number of cycles is even,
+        else {
+            // @ Return the person who has the pillow after time seconds
+            return rem + 1;
+        }
+    }
 }
