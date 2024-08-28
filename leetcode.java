@@ -1083,11 +1083,68 @@ public class leetcode {
         if (cyc % 2 != 0) {
             // @ Return the person who has the pillow after time seconds
             return n - rem;
-        } 
+        }
         // * If the number of cycles is even,
         else {
             // @ Return the person who has the pillow after time seconds
             return rem + 1;
         }
+    }
+
+    // % Remove Duplicates
+    public int removeDuplicates(int[] nums) {
+        // $ If the array is empty, return 0
+        if (nums.length == 0) {
+            return 0;
+        }
+        // $ Initialize a variable 'i' to keep track of the index of the last unique
+        // element
+        int i = 0;
+        // $ Iterate over the array
+        for (int j = 1; j < nums.length; j++) {
+            // * If the current element is not equal to the element at index 'i',
+            if (nums[j] != nums[i]) {
+                // @ Increment 'i' and assign the current element to the next index
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        // $ Return the length of the new array after removing the duplicates
+        return i + 1;
+    }
+
+    // % Keyboard Row
+    public String[] findWords(String[] words) {
+        // $ If the input array is empty, return an empty array
+        if (words.length == 0) {
+            return new String[0];
+        }
+
+        // $ Initialize sets to store the letters
+        Set<Character> firstRow = new HashSet<>(Arrays.asList('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'));
+        Set<Character> secondRow = new HashSet<>(Arrays.asList('a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'));
+        Set<Character> thirdRow = new HashSet<>(Arrays.asList('z', 'x', 'c', 'v', 'b', 'n', 'm'));
+
+        // $ Initialize a list to store the words
+        List<String> resultList = new ArrayList<>();
+
+        // $ Iterate over each word in the input array
+        for (String word : words) {
+            // * Initialize a set to store the letters in the current word
+            Set<Character> letters = new HashSet<>();
+            // * Convert the current word to lowercase and iterate over each letter
+            for (char c : word.toLowerCase().toCharArray()) {
+                // @ Add the current letter to the set of letters
+                letters.add(c);
+            }
+            // * Check if the set of letters can be typed using only one row of the keyboard
+            if (firstRow.containsAll(letters) || secondRow.containsAll(letters) || thirdRow.containsAll(letters)) {
+                // @ Add the current word to the result list
+                resultList.add(word);
+            }
+        }
+
+        // $ Convert the result list to an array of strings and return it
+        return resultList.toArray(String[]::new);
     }
 }
