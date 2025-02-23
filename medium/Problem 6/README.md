@@ -8,17 +8,20 @@ The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of 
 
 And then read line by line: `"PAHNAPLSIIGYIR"`
 
-## Example 1
+## Examples
+
+### Example 1
 
 - Input: s = "PAYPALISHIRING", numRows = 3
 - Output: "PAHNAPLSIIGYIR"
 
-## Example 2
+### Example 2
 
 - Input: s = "PAYPALISHIRING", numRows = 4
 - Output: "PINALSIGYAHRPI"
 
-Explanation:
+## Explanation
+
 - `P`     `I`    `N`
 - `A`   `L S`  `I G`
 - `Y A`   `H R`
@@ -30,11 +33,13 @@ Explanation:
 - s consists of English letters (lower-case and upper-case), ',' and '.'.
 - 1 <= numRows <= 1000
 
-## Time Complexity
+## Complexity Analysis
+
+### Time Complexity
 
 The time complexity of the `convert` function is O(n), where n is the length of the input string `s`. This is because the function iterates through each character of the string exactly once to distribute them into the respective rows. The subsequent combination of rows into a single string also takes O(n) time, as it involves concatenating each row string. Therefore, the overall time complexity is O(n).
 
-## Space Complexity
+### Space Complexity
 
 The space complexity of the `convert` function is O(n). This is due to the additional storage needed for the `rows` array, which stores the characters for each row of the zigzag pattern. Each character in the input string `s` is stored in one of the rows, resulting in a total space requirement proportional to the length of `s`. Therefore, the overall space complexity is O(n).
 
