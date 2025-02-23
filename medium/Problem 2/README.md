@@ -23,3 +23,10 @@ You may assume the two numbers do not contain any leading zero, except the numbe
 - `0` <= `Node.val` <= `9`
 - It is guaranteed that the list represents a number that does not have leading zeros.
 
+## Time Complexity
+
+The time complexity of the code is O(max(m, n)) where m and n are the lengths of the two linked lists. This is because the code iterates through the two lists once.
+
+## Space Complexity
+
+The space complexity of the code is O(max(m, n)) as well. This is because the code creates a new linked list with the same length as the longer of the two input linked lists.
