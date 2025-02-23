@@ -1,44 +1,47 @@
 # Regular Expression Matching
 
-Given an input string `s` and a pattern `p`, implement regular expression matching with support for `'.'` and `'*'` where:
+## Problem Description
 
-* `'.'` Matches any single character.
-* `'*'` Matches zero or more of the preceding element.
+Given an input string `s` and a pattern `p`, implement regular expression matching with support for the following:
 
-The matching should cover the entire input string (not partial).
+- `'.'`: Matches any single character.
+- `'*'`: Matches zero or more of the preceding element.
 
-## Example 1
+The matching should cover the entire input string, not just a partial match.
 
-* Input: `s = "aa"`, `p = "a"`
-* Output: `false`
-* Explanation: "a" does not match the entire string "aa".
+## Examples
 
-## Example 2
+### Example 1
 
-* Input: `s = "aa"`, `p = "a*"`
-* Output: `true`
-* Explanation: '*' means zero or more of the preceding element, 'a'. Therefore, by repeating 'a' once, it becomes "aa".
+- **Input**: `s = "aa"`, `p = "a"`
+- **Output**: `false`
+- **Explanation**: The pattern "a" does not match the entire string "aa".
 
-## Example 3
+### Example 2
 
-* Input: `s = "ab"`, `p = ".*"`
-* Output: `true`
-* Explanation: ".*" means "zero or more (*) of any character (.)".
+- **Input**: `s = "aa"`, `p = "a*"`
+- **Output**: `true`
+- **Explanation**: The '*' allows for zero or more of the preceding element 'a'. Repeating 'a' once results in "aa".
+
+### Example 3
+
+- **Input**: `s = "ab"`, `p = ".*"`
+- **Output**: `true`
+- **Explanation**: The pattern ".*" matches "zero or more (*) of any character (.)".
 
 ## Constraints
 
-* `1 <= s.length <= 20`
-* `1 <= p.length <= 20`
-* `s` contains only lowercase English letters.
-* `p` contains only lowercase English letters, `'.'`, and `'*'`.
-* It is guaranteed for each appearance of the character `'*'`, there will be a previous valid character to match.
+- `1 <= s.length <= 20`
+- `1 <= p.length <= 20`
+- The string `s` contains only lowercase English letters.
+- The pattern `p` contains only lowercase English letters, `'.'`, and `'*'`.
+- Every '*' character in the pattern `p` will have a preceding valid character to match.
 
-## Time Complexity
+## Complexity Analysis
 
-The time complexity is O(m * n) because in the worst case, we need to
-iterate over the text and the pattern m and n times respectively.
+- **Time Complexity**: O(m * n)
+  - In the worst case, the algorithm iterates over the text and the pattern `m` and `n` times, respectively.
 
-## Space Complexity
+- **Space Complexity**: O(m * n)
+  - A dynamic programming (dp) array of size `m * n` is used to store intermediate results.
 
-The space complexity is O(m * n) because we need to store the dp array
-of size m * n to store the intermediate results.
