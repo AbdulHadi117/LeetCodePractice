@@ -9,9 +9,10 @@ Welcome to my **LeetCode Daily Practice** repository! 🚀 This repository is de
 ## 📂 Folder Structure
 ```
 leetcode-practice/
-├── easy/
-├── medium/
-├── hard/
+│── src/
+│   ├── easy/
+│   ├── medium/
+│   ├── hard/
 │── README.md
 ```
 - **src/**: Contains the Java solutions categorized by difficulty level.
